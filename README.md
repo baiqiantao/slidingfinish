@@ -1,2 +1,12 @@
 # slidingfinish
 滑动返回
+
+# 基本思想
+我们的滑动逻辑主要是利用View的scrollBy() 方法, scrollTo()方法和Scroller类来实现的
+当手指拖动视图的时候，我们监听手指在屏幕上滑动的距离
+利用View的scrollBy() 方法使得View随着手指的滑动而滑动
+而当手指离开屏幕，我们在根据逻辑使用Scroller类startScroll()方法设置滑动的参数，然后再根据View的scrollTo进行滚动。
+
+对于View的滑动，存在一些Touch事件消费的处理等问题，最主要的就是Activity里面有一些ListView、 GridView、ScrollView等控件
+假如我们Activity里面存在ListView、GridView等控件的话，我们对Activity的最外层布局进行滚动根本就无效果，因为Touch事件被ListView、GridView等控件消费了，所以Activity的最外层布局根本得不到Touch事件，也就实现不了Touch逻辑了
+为了解决此Touch事件问题，我们将OnTouchListener直接设置到ListView、GridView上面，这样子就避免了Activity的最外层接受不到Touch事件的问题了
